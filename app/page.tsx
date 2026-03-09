@@ -1,114 +1,105 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 
-export default function FarahSpecialGift() {
+export default function FarahLuxuryGift() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
 
   return (
     <div style={{ 
-      backgroundColor: '#000', 
-      minHeight: '100vh', 
-      color: '#fff', 
-      fontFamily: 'serif',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      overflowX: 'hidden',
-      padding: '20px'
+      backgroundColor: '#000', minHeight: '100vh', color: '#fff', 
+      fontFamily: "'Playfair Display', serif", overflowX: 'hidden' 
     }}>
-      {/* Background Music */}
       <audio autoPlay loop src="/song.mp3" />
 
-      <h1 style={{ color: '#8B0000', fontSize: '2rem', marginBottom: '40px', textShadow: '0 0 10px #FF0000' }}>
-        For My Red Rose, Farah
-      </h1>
+      {/* LUXURY OVERLAY: ROSE PETALS ANIMATION */}
+      <div className="petals-container" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 10 }}>
+        {[...Array(15)].map((_, i) => (
+          <div key={i} className="petal" style={{
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 5}s`,
+            animationDuration: `${5 + Math.random() * 5}s`
+          }}>🌹</div>
+        ))}
+      </div>
 
-      {/* 3D CAROUSEL SECTION (Foto 1-6) */}
-      <div className="carousel-container" style={{
-        height: '250px',
-        perspective: '1000px',
-        marginBottom: '100px',
-        marginTop: '50px'
-      }}>
-        <div style={{
-          width: '150px',
-          height: '200px',
-          position: 'relative',
-          transformStyle: 'preserve-3d',
-          animation: 'rotate 20s linear infinite'
+      {/* HERO SECTION: 3D FLOATING CAROUSEL */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '60px' }}>
+        <h1 style={{ 
+          fontSize: '2.5rem', color: '#D4AF37', letterSpacing: '4px', textAlign: 'center',
+          textTransform: 'uppercase', marginBottom: '10px' 
+        }}>Farah</h1>
+        <p style={{ color: '#8B0000', fontStyle: 'italic', marginBottom: '50px' }}>The Most Beautiful Rose in My Garden</p>
+
+        <div className="carousel-3d" style={{
+          height: '300px', perspective: '1200px', position: 'relative'
         }}>
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} style={{
-              position: 'absolute',
-              width: '150px',
-              height: '200px',
-              border: '3px solid #8B0000',
-              boxShadow: '0 0 15px #FF0000',
-              transform: `rotateY(${(i - 1) * 60}deg) translateZ(250px)`
-            }}>
-              <img src={`/foto${i}.jpg`} alt="Farah" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          ))}
+          <div style={{
+            width: '180px', height: '240px', transformStyle: 'preserve-3d',
+            animation: 'rotate3d 25s linear infinite'
+          }}>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} style={{
+                position: 'absolute', width: '180px', height: '240px',
+                border: '1px solid #D4AF37', boxShadow: '0 0 20px rgba(139, 0, 0, 0.8)',
+                transform: `rotateY(${(i - 1) * 60}deg) translateZ(280px)`,
+                backgroundColor: '#050000', padding: '5px'
+              }}>
+                <img src={`/foto${i}.jpg`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* FLIPBOOK BUTTON */}
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          padding: '15px 30px',
-          backgroundColor: '#8B0000',
-          border: 'none',
-          borderRadius: '25px',
-          color: 'white',
-          fontSize: '1.2rem',
-          cursor: 'pointer',
-          boxShadow: '0 0 20px #FF0000',
-          marginBottom: '50px'
-        }}
-      >
-        {isOpen ? 'Tutup Buku' : 'Buka Buku Kenangan'}
-      </button>
+      {/* LUXURY INTERACTIVE BOOK SECTION */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '120px', paddingBottom: '100px' }}>
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          style={{
+            padding: '15px 40px', backgroundColor: 'transparent', color: '#D4AF37',
+            border: '2px solid #D4AF37', borderRadius: '0', fontSize: '1rem',
+            letterSpacing: '3px', cursor: 'pointer', transition: '0.3s'
+          }}>
+          {isOpen ? 'CLOSE JOURNAL' : 'OPEN LUXURY JOURNAL'}
+        </button>
+      </div>
 
-      {/* 3D FLIPBOOK SECTION (Foto 7-15) */}
       {isOpen && (
-        <div style={{ width: '100%', maxWidth: '400px', textAlign: 'center' }}>
-          <p style={{ fontStyle: 'italic', marginBottom: '20px', color: '#FFB6C1' }}>"Swipe atau scroll ke bawah untuk melihat kenangan kita..."</p>
+        <div style={{ maxWidth: '500px', margin: '0 auto', padding: '0 20px' }}>
           {[7, 8, 9, 10, 11, 12, 13, 14, 15].map((i) => (
-            <div key={i} style={{
-              width: '100%',
-              backgroundColor: '#1a0000',
-              padding: '10px',
-              marginBottom: '20px',
-              border: '2px solid #8B0000',
-              borderRadius: '10px'
-            }}>
-              <img src={`/foto${i}.jpg`} alt="Memory" style={{ width: '100%', borderRadius: '5px' }} />
+            <div key={i} style={{ marginBottom: '60px', textAlign: 'center' }}>
+              <div style={{ border: '1px solid #222', padding: '15px', position: 'relative' }}>
+                <img src={`/foto${i}.jpg`} style={{ width: '100%', filter: 'contrast(1.1) brightness(0.9)' }} />
+                <div style={{ position: 'absolute', bottom: '-20px', right: '10px', color: '#D4AF37', fontSize: '0.8rem' }}>
+                  MEMOIR No. 0{i-6}
+                </div>
+              </div>
             </div>
           ))}
           
-          <div style={{ marginTop: '50px', padding: '40px', border: '2px dashed #8B0000' }}>
-            <h2 style={{ color: '#FF0000' }}>aku sayangg bangett sama ko</h2>
-            <p>terus mekar yaa mawar merah kesayangan aku</p>
+          <div style={{ textAlign: 'center', padding: '100px 0', borderTop: '1px solid #D4AF37' }}>
+            <h2 style={{ color: '#D4AF37', fontSize: '2rem' }}>Eternally Yours.</h2>
+            <p style={{ color: '#8B0000', fontSize: '1.2rem', marginTop: '20px' }}>I Love You, Farah.</p>
           </div>
         </div>
       )}
 
       <style jsx global>{`
-        @keyframes rotate {
-          from { transform: rotateY(0deg); }
-          to { transform: rotateY(360deg); }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        @keyframes rotate3d { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        @keyframes fall {
+          0% { transform: translateY(-10vh) rotate(0deg); }
+          100% { transform: translateY(110vh) rotate(360deg); }
         }
-        body { margin: 0; padding: 0; }
+        .petal {
+          position: fixed; color: #8B0000; font-size: 20px;
+          animation: fall linear infinite; top: -10%;
+        }
       `}</style>
     </div>
   );
 }
-
